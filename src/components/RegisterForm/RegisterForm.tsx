@@ -51,7 +51,7 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
     }
   };
 
-  const handleCreateUser = () => {
+  const handleCreateUser = async () => {
     if (
       changeNewUser.email &&
       changeNewUser.username &&
@@ -59,7 +59,7 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
     ) {
       if (changeNewUser.password === changeNewUser.confirmPassword) {
         // console.log(changeNewUser);
-        axios.post(`${api}`, {
+        await axios.post(`${api}`, {
           UserName: changeNewUser.username,
           Email: changeNewUser.email,
           Password: changeNewUser.password,
