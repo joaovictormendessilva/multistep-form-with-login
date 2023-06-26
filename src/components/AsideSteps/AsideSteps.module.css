@@ -1,0 +1,68 @@
+.asideSteps {
+  background-image: url(../../assets/bg-sidebar-desktop.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 568px;
+  width: 274px;
+  padding: 30px;
+}
+
+.asideSteps ul {
+  list-style: none;
+}
+
+.asideSteps li {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.asideSteps li p {
+  font-size: 0.75rem;
+}
+
+.asideSteps li b {
+  color: var(--white);
+  font-size: 0.875rem;
+}
+
+.asideSteps button {
+  height: 30px;
+  width: 30px;
+  border-radius: 999px;
+  background-color: transparent;
+  border: solid 1px var(--white);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.asideSteps .activeStep {
+  background-color: var(--pastel-blue);
+  border-color: var(--pastel-blue);
+  color: var(--marine-blue);
+}
+
+@media (max-width: 685px) {
+  .asideSteps {
+    width: 100%;
+    height: auto;
+    background-image: url(../../assets/bg-sidebar-mobile.svg);
+  }
+  .asideSteps ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .asideSteps ul li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 415px) {
+  .stepLabels {
+    display: none;
+  }
+}

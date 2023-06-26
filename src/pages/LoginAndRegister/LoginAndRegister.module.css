@@ -1,0 +1,25 @@
+.loginAndRegister {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.loginAndRegisterContainer {
+  width: 400px;
+  height: 420px;
+  border-radius: 10px;
+  padding: 2rem 1rem 0 1rem;
+
+  background-color: var(--white);
+}
+
+.loginAndRegister h1 {
+  text-align: center;
+}
+
+@media (max-width: 675px) {
+  .loginAndRegisterContainer {
+    width: 100%;
+    height: 400px;
+  }
+}

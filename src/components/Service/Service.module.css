@@ -1,0 +1,48 @@
+.service {
+  position: relative;
+  /* Com o display grid, o align items funciona para alinhar o botão com os outros componentes */
+  display: grid;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.serviceInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--light-gray);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+}
+
+.checkAndTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.checkAndTitle label {
+  font-weight: bold;
+  color: var(--marine-blue);
+}
+
+.checkAndTitle p {
+  font-size: 0.875rem;
+  margin-top: 0.4rem;
+}
+
+.checkBox {
+  position: absolute;
+  left: 15px;
+  height: 50px;
+  width: 17px;
+}
+
+.checkBox:checked {
+  background-color: var(--purplish-blue);
+  accent-color: var(--purplish-blue);
+}
+
+.checkBox:checked + .serviceInfo {
+  border-color: var(--purplish-blue);
+  background-color: var(--alabaster);
+}

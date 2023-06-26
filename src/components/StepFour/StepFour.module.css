@@ -1,0 +1,82 @@
+.stepFour .containerInfo {
+  background-color: var(--alabaster);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.stepFour .containerInfo .planAndValue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stepFour .containerInfo .planAndValue b {
+  color: var(--marine-blue);
+}
+
+.stepFour .containerInfo .planAndValue .planAndChangeButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepFour .containerInfo .planAndValue .planAndChangeButton button {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  margin-top: 0.3rem;
+  color: var(--cool-gray);
+  border-bottom: solid 1px var(--cool-gray);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.stepFour .containerInfo .planAndValue .planAndChangeButton button:hover,
+.stepFour .containerInfo .planAndValue .planAndChangeButton button:active {
+  color: var(--purplish-blue);
+  border-bottom-color: var(--purplish-blue);
+}
+
+.stepFour .containerInfo ul {
+  list-style: none;
+}
+
+.divider {
+  border-bottom: solid 1px var(--light-gray);
+  height: 1px;
+  margin: 1rem 0;
+}
+
+.stepFour .listOfServices li {
+  margin-bottom: 1rem;
+}
+
+.stepFour .listOfServices .serviceInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stepFour .listOfServices .serviceInfo .servicePrice {
+  color: var(--marine-blue);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stepFour .listOfServices .serviceInfo .serviceTitle {
+  color: var(--cool-gray);
+}
+
+.stepFour .totalPerMonth {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+}
+
+.stepFour .totalPerMonth .totalPerMonthTitle {
+  font-size: 0.875rem;
+  color: var(--cool-gray);
+}
+
+.stepFour .totalPerMonth .totalPerMonthTotal {
+  font-size: 1.2rem;
+  color: var(--purplish-blue);
+}

@@ -1,0 +1,45 @@
+.formControl {
+  display: flex;
+  flex-direction: column;
+}
+
+.formControl .labelAndSpanAlert {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.formControl .labelAndSpanAlert label {
+  color: var(--marine-blue);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.formControl .labelAndSpanAlert span {
+  color: var(--strawberry-red);
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+.formControl input {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: solid 1px var(--light-gray);
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--marine-blue);
+  margin-bottom: 1.2rem;
+}
+
+.formControl input::placeholder {
+  color: var(--cool-gray);
+}
+
+.formControl input:focus {
+  outline: solid 1px var(--purplish-blue);
+}
+
+.formControl .invalid {
+  border: solid 1px var(--strawberry-red);
+  outline: none !important;
+}

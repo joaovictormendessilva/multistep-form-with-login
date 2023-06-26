@@ -1,0 +1,14 @@
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  background-color: #ebf3fb;
+}
+
+@media (max-width: 675px) {
+  .app {
+    height: auto;
+  }
+}

@@ -1,0 +1,79 @@
+.buttons .prevButton {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  color: var(--cool-gray);
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 32px;
+  left: 50px;
+}
+
+.buttons .nextButton {
+  background-color: var(--marine-blue);
+  border: solid 1px var(--marine-blue);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 15px;
+  right: 50px;
+}
+
+.buttons .confirmButton {
+  background-color: var(--purplish-blue);
+  border: solid 1px var(--purplish-blue);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 15px;
+  right: 50px;
+}
+
+.buttons .confirmButton:hover {
+  background-color: #827cff;
+  border: solid 1px #827cff;
+}
+
+.buttons .nextButton:hover,
+.buttons .nextButton:active {
+  background-color: #0d56af;
+  border-color: #0d56af;
+}
+
+.buttons .prevButton:hover,
+.buttons .prevButton:active {
+  color: var(--marine-blue);
+}
+
+@media (max-width: 685px) {
+  .buttons {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--white);
+    padding-bottom: 1rem;
+  }
+
+  .buttons .nextButton,
+  .buttons .prevButton,
+  .buttons .confirmButton {
+    position: initial;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}

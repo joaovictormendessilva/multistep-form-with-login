@@ -1,0 +1,69 @@
+.card {
+  position: relative;
+  width: 140px;
+  height: 150px;
+}
+
+.card input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  z-index: 2;
+}
+
+.card .cardInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+}
+
+.card input:hover + .cardInfo {
+  border-color: var(--purplish-blue);
+}
+
+.card .cardInfo img {
+  width: 40px;
+}
+
+.card .cardInfo label {
+  color: var(--marine-blue);
+  font-weight: bold;
+}
+
+.card .cardInfo p {
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+}
+
+.card .cardInfo .monthsFreeLabel {
+  color: var(--marine-blue);
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.card input:checked + .cardInfo {
+  border-color: var(--purplish-blue);
+  background-color: var(--alabaster);
+}
+
+@media (max-width: 675px) {
+  .card {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 1rem;
+  }
+
+  .card .cardInfo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}
