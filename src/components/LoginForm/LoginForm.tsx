@@ -57,26 +57,6 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     }
   };
 
-  // Funcionando
-  // const data = users;
-
-  // const handleCheckLogin = () => {
-  //   if (user.username && user.password) {
-  //     const approveduser = data.filter((userData) => {
-  //       return (
-  //         userData.username === user.username &&
-  //         userData.password === user.password
-  //       );
-  //     });
-
-  //     if (approveduser.length > 0) {
-  //       setIsLogged(true);
-  //     } else {
-  //       alert("Usuário ou senha incorretos!");
-  //     }
-  //   }
-  // };
-
   const data = users;
 
   const handleCheckLogin = () => {
@@ -88,7 +68,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
         );
       });
 
-      setLocalStorageWithExpiration("logado", approveduser, 1);
+      setLocalStorageWithExpiration("session", approveduser, 1);
 
       if (approveduser.length > 0) {
         setIsLogged(true);

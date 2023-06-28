@@ -73,9 +73,3 @@ footer button {
   border-bottom: solid 1px var(--marine-blue);
   font-size: 1rem;
 }
-
-@media (max-width: 675px) {
-  .inputBox {
-    height: 250px;
-  }
-}

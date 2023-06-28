@@ -38,8 +38,8 @@ export function App() {
   }
 
   useEffect(() => {
-    getLocalStorageWithExpiration("logado");
-  });
+    getLocalStorageWithExpiration("session");
+  }, []);
 
   return (
     <div className={styles.app}>

@@ -5,7 +5,10 @@ import styles from "./AsideSteps.module.css";
 import { useContext } from "react";
 
 // Context
-import { AppContext } from "../../contexts/AppContext";
+import { AuthContext } from "../../App";
+
+// Images
+import signOutIcon from "../../assets/sign-out.svg";
 
 // Interface
 import { StepInterface } from "../../interfaces/Step";
@@ -15,9 +18,14 @@ interface AsideStepsProps {
 }
 
 export function AsideSteps({ step }: AsideStepsProps) {
-  const appContext = useContext(AppContext);
-  if (!appContext) return;
-  const {} = appContext;
+  const authContext = useContext(AuthContext);
+  if (!authContext) return;
+  const { setIsLogged } = authContext;
+
+  const handleLogout = () => {
+    localStorage.removeItem("session");
+    setIsLogged(false);
+  };
 
   return (
     <aside className={styles.asideSteps}>
@@ -71,6 +79,15 @@ export function AsideSteps({ step }: AsideStepsProps) {
           <div className={styles.stepLabels}>
             <p>STEP 4</p>
             <b>SUMMARY</b>
+          </div>
+        </li>
+
+        <li className={styles.logoutButton}>
+          <div>
+            <a href="/" onClick={handleLogout}>
+              <img src={signOutIcon} alt="Ícone de sair" />
+              Logout
+            </a>
           </div>
         </li>
       </ul>

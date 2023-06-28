@@ -58,12 +58,10 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
       changeNewUser.password
     ) {
       if (changeNewUser.password === changeNewUser.confirmPassword) {
-        // console.log(changeNewUser);
         await axios.post(`${api}`, {
           UserName: changeNewUser.username,
           Email: changeNewUser.email,
           Password: changeNewUser.password,
-          ConfirmPassword: changeNewUser.confirmPassword,
         });
       } else {
         alert("As senhas não são iguais!");
