@@ -36,6 +36,8 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     show: false,
   });
 
+  const [errorMessage, setErrorMessage] = useState<string>("")
+
   const authContext = useContext(AuthContext);
   if (!authContext) return;
   // const { setIsLogged } = authContext;
@@ -95,7 +97,14 @@ export function LoginForm({ setToggle }: LoginFormProps) {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
-        console.log(response)
+          if (response.status === 400) {
+            setErrorMessage(response.data)
+            alert(errorMessage);
+          }
+          else{
+            setErrorMessage("");
+            console.log(response)
+          }
       }).catch((error) => {
         console.log(error)
       })
