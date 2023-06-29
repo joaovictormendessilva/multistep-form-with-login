@@ -87,7 +87,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   const handleCheckLogin = async () => {
     if (user.username && user.password) {
-      await axios.post(`${api}/login/`, {
+      await axios.post(`${api}/entrar/`, {
         Username: user.username,
         Password: user.password
       }, {
