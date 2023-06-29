@@ -18,7 +18,7 @@ interface LoginFormProps {
 }
 
 // Data
-import { users } from "../../data/usersData";
+// import { users } from "../../data/usersData";
 
 // Context API
 import { AuthContext } from "../../App";
@@ -29,9 +29,6 @@ import axios from "axios";
 // API
 const api = import.meta.env.VITE_API
 
-// Token
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9hb3ZpY3RvciIsImp0aSI6IjkyYjQ0MmQxLWI0N2YtNGE3MS05MjQ4LWU0OTE1NjFmZGY1NyIsImV4cCI6MTY4Nzk4NzAwMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIn0.wRnbNQBied7dDvrLDV0975lMwzJjiFhtVj9A3RVVAu8"
-
 export function LoginForm({ setToggle }: LoginFormProps) {
   const [user, setUser] = useState<User>({} as User);
   const [showPassword, setShowPassword] = useState({
@@ -41,7 +38,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   const authContext = useContext(AuthContext);
   if (!authContext) return;
-  const { setIsLogged } = authContext;
+  // const { setIsLogged } = authContext;
 
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
@@ -66,7 +63,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     }
   };
 
-  const data = users;
+  // const data = users;
 
   // const handleCheckLogin = () => {
   //   if (user.username && user.password) {
@@ -107,19 +104,19 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   // ////////////////////////////////////////////////////////////////////////////////////////
   // Função para armazenar dados no localStorage com uma data de expiração
-  function setLocalStorageWithExpiration(
-    key: string,
-    value: typeof data,
-    expirationInMinutes: number
-  ) {
-    const expirationMs = expirationInMinutes * 60 * 1000; // Converter minutos para milissegundos
-    const expirationTime = new Date().getTime() + expirationMs;
-    const data = {
-      value: value,
-      expirationTime: expirationTime,
-    };
-    localStorage.setItem(key, JSON.stringify(data));
-  }
+  // function setLocalStorageWithExpiration(
+  //   key: string,
+  //   value: typeof data,
+  //   expirationInMinutes: number
+  // ) {
+  //   const expirationMs = expirationInMinutes * 60 * 1000; // Converter minutos para milissegundos
+  //   const expirationTime = new Date().getTime() + expirationMs;
+  //   const data = {
+  //     value: value,
+  //     expirationTime: expirationTime,
+  //   };
+  //   localStorage.setItem(key, JSON.stringify(data));
+  // }
 
   ////////////////////////////////////////////////////////////////////////////////////////////
   return (

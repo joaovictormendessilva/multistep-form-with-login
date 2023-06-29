@@ -55,7 +55,8 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
     if (
       changeNewUser.email &&
       changeNewUser.username &&
-      changeNewUser.password
+      changeNewUser.password &&
+      changeNewUser.confirmPassword
     ) {
       if (changeNewUser.password === changeNewUser.confirmPassword) {
         await axios.post(`${api}/nova-conta/`, {
