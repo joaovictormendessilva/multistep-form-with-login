@@ -23,6 +23,15 @@ import { users } from "../../data/usersData";
 // Context API
 import { AuthContext } from "../../App";
 
+// Axios
+import axios from "axios";
+
+// API
+const api = import.meta.env.VITE_API
+
+// Token
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiam9hb3ZpY3RvciIsImp0aSI6IjkyYjQ0MmQxLWI0N2YtNGE3MS05MjQ4LWU0OTE1NjFmZGY1NyIsImV4cCI6MTY4Nzk4NzAwMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIn0.wRnbNQBied7dDvrLDV0975lMwzJjiFhtVj9A3RVVAu8"
+
 export function LoginForm({ setToggle }: LoginFormProps) {
   const [user, setUser] = useState<User>({} as User);
   const [showPassword, setShowPassword] = useState({
@@ -59,24 +68,42 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   const data = users;
 
-  const handleCheckLogin = () => {
+  // const handleCheckLogin = () => {
+  //   if (user.username && user.password) {
+  //     const approveduser = data.filter((userData) => {
+  //       return (
+  //         userData.username === user.username &&
+  //         userData.password === user.password
+  //       );
+  //     });
+
+      
+
+  //     if (approveduser.length > 0) {
+  //       setIsLogged(true);
+  //       setLocalStorageWithExpiration("session", approveduser, 1);
+  //     } else {
+  //       alert("Usuário ou senha incorretos!");
+  //     }
+  //   }
+  // };
+
+  const handleCheckLogin = async () => {
     if (user.username && user.password) {
-      const approveduser = data.filter((userData) => {
-        return (
-          userData.username === user.username &&
-          userData.password === user.password
-        );
-      });
-
-      setLocalStorageWithExpiration("session", approveduser, 1);
-
-      if (approveduser.length > 0) {
-        setIsLogged(true);
-      } else {
-        alert("Usuário ou senha incorretos!");
-      }
+      await axios.post(`${api}/login/`, {
+        Username: user.username,
+        Password: user.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
     }
-  };
+  }
 
   // ////////////////////////////////////////////////////////////////////////////////////////
   // Função para armazenar dados no localStorage com uma data de expiração

@@ -58,10 +58,15 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
       changeNewUser.password
     ) {
       if (changeNewUser.password === changeNewUser.confirmPassword) {
-        await axios.post(`${api}`, {
-          UserName: changeNewUser.username,
+        await axios.post(`${api}/nova-conta/`, {
+          Username: changeNewUser.username,
           Email: changeNewUser.email,
           Password: changeNewUser.password,
+          ConfirmPassword: changeNewUser.confirmPassword,
+        },{
+          headers: {
+            "Content-Type": 'application/json'
+          }
         });
       } else {
         alert("As senhas não são iguais!");
