@@ -13,11 +13,17 @@ import slashEyeIcon from "../../assets/eye-slash.svg";
 
 // Interface
 import { NewUser } from "../../interfaces/NewUser";
-import axios from "axios";
+import { MessageProps } from "../../interfaces/Message";
 
 interface RegisterFormProps {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+// Components
+import { SystemMessages } from "../SystemMessages/SystemMessages";
+
+// Axios
+import axios from "axios";
 
 const api = import.meta.env.VITE_API;
 
@@ -27,6 +33,8 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
     type: "password",
     show: false,
   });
+
+  const [message, setMessage] = useState<MessageProps>({} as MessageProps)
 
   const handleChangeNewUser = (e: ChangeEvent<HTMLInputElement>) => {
     setChangeNewUser((prev) => ({
@@ -64,21 +72,54 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
           Email: changeNewUser.email,
           Password: changeNewUser.password,
           ConfirmPassword: changeNewUser.confirmPassword,
-        },{
+        }, {
           headers: {
             "Content-Type": 'application/json'
           }
-        });
-      } else {
+        })
+          .then((response) => {
+
+            if (response.data.StatusCode === 200) {
+              setMessage((prevValue) => ({
+                ...prevValue,
+                message: response.data.Message,
+                type: response.data.StatusCode
+              }))
+            }
+
+            setChangeNewUser((prevValue) => ({
+              ...prevValue,
+              username: '',
+              email: '',
+              password: '',
+              confirmPassword: ''
+            }))
+
+          })
+          .catch((error) => {
+            console.log(error.response.data)
+            if (error.response.data.StatusCode === 406) {
+              setMessage((prevValue) => ({
+                ...prevValue,
+                message: error.response.data.Message,
+                type: error.response.data.StatusCode
+              }))
+            }
+          });
+      }
+      else {
         alert("As senhas não são iguais!");
       }
-    } else {
+    }
+    else {
       alert("Todos os campos são obrigatórios");
     }
   };
 
   return (
     <>
+      <SystemMessages message={message} />
+
       <div className={styles.inputBox}>
         <div className={styles.formControl}>
           <input
@@ -87,6 +128,7 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
             type="text"
             placeholder="Type your username"
             onChange={handleChangeNewUser}
+            value={changeNewUser.username || ''}
           />
           <img
             className={styles.formIcon}
@@ -102,6 +144,7 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
             type="text"
             placeholder="Type your email"
             onChange={handleChangeNewUser}
+            value={changeNewUser.email || ''}
           />
           <img
             className={styles.formIcon}
@@ -117,11 +160,13 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
             type={showPassword.type}
             placeholder="Type your password"
             onChange={handleChangeNewUser}
+            value={changeNewUser.password || ''}
           />
           <img
             className={styles.formIcon}
             src={passwordIcon}
             alt="Ícone do campo de senha"
+
           />
 
           {showPassword.show ? (
@@ -147,6 +192,7 @@ export function RegisterForm({ setToggle }: RegisterFormProps) {
             type={showPassword.type}
             placeholder="Confirm your password"
             onChange={handleChangeNewUser}
+            value={changeNewUser.confirmPassword || ''}
           />
           <img
             className={styles.formIcon}

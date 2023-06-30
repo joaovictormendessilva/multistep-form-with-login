@@ -12,14 +12,10 @@ import slashEyeIcon from "../../assets/eye-slash.svg";
 
 // Interface
 import { User } from "../../interfaces/User";
+import { MessageProps } from "../../interfaces/Message";
 
 interface LoginFormProps {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface MessageProps {
-  message: string
-  type: number
 }
 
 // Data
@@ -30,6 +26,7 @@ import { AuthContext } from "../../App";
 
 // Axios
 import axios from "axios";
+import { SystemMessages } from "../SystemMessages/SystemMessages";
 
 // API
 const api = import.meta.env.VITE_API
@@ -74,28 +71,6 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     }
   };
 
-  // const data = users;
-
-  // const handleCheckLogin = () => {
-  //   if (user.username && user.password) {
-  //     const approveduser = data.filter((userData) => {
-  //       return (
-  //         userData.username === user.username &&
-  //         userData.password === user.password
-  //       );
-  //     });
-
-
-
-  //     if (approveduser.length > 0) {
-  //       setIsLogged(true);
-  //       setLocalStorageWithExpiration("session", approveduser, 1);
-  //     } else {
-  //       alert("Usuário ou senha incorretos!");
-  //     }
-  //   }
-  // };
-
   const handleCheckLogin = async () => {
     if (userData.username && userData.password) {
 
@@ -112,15 +87,15 @@ export function LoginForm({ setToggle }: LoginFormProps) {
           if (response.status === 200) {
             setMessage((prevValue) => ({
               ...prevValue,
-              message: response.data.message,
-              type: response.data.statusCode
+              message: response.data.Message,
+              type: response.data.StatusCode
             }))
 
             setUser((prevValue) => ({
               ...prevValue,
               username: userData.username,
-              securityToken: response.data.securityToken,
-              expiration: response.data.expiration
+              securityToken: response.data.SecurityToken,
+              expiration: response.data.Expiration
             }))
 
             setInterval(() => {
@@ -131,7 +106,13 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
         })
         .catch((error) => {
-          console.log(error)
+          if (error.response.data.StatusCode === 401) {
+            setMessage((prevValue) => ({
+              ...prevValue,
+              message: error.response.data.Message,
+              type: error.response.data.StatusCode
+            }))
+          }
         })
     }
     else {
@@ -168,23 +149,8 @@ export function LoginForm({ setToggle }: LoginFormProps) {
   ////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <>
-      {
-        message.type === 200 &&
-        (
-          <div className={styles.successMessage}>
-            <h4>{message.message}</h4>
-          </div>
-        )
-      }
 
-      {
-        message.type === 422 &&
-        (
-          <div className={styles.warningMessage}>
-            <h4>{message.message}</h4>
-          </div>
-        )
-      }
+      <SystemMessages message={message} />
 
       <div className={styles.inputBox}>
         <div className={styles.formControl}>

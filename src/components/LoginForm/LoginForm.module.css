@@ -1,20 +1,3 @@
-.successMessage{
-  text-align: center;
-  padding: 1rem;
-  background-color: #4ae56a;
-  margin-bottom: 0.5rem;
-  color: var(--white);
-  border-radius: 8px;
-}
-.warningMessage{
-  text-align: center;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  background-color: #e5814a;
-  color: var(--white);
-  border-radius: 8px;
-}
-
 .inputBox {
   width: 90%;
   height: 300px;
