@@ -17,6 +17,11 @@ interface LoginFormProps {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface MessageProps {
+  message: string
+  type: number
+}
+
 // Data
 // import { users } from "../../data/usersData";
 
@@ -35,8 +40,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     type: "password",
     show: false,
   });
-
-  const [errorMessage, setErrorMessage] = useState<string>("")
+  const [message, setMessage] = useState<MessageProps>({} as MessageProps)
 
   const authContext = useContext(AuthContext);
   if (!authContext) return;
@@ -56,7 +60,8 @@ export function LoginForm({ setToggle }: LoginFormProps) {
         type: "text",
         show: true,
       }));
-    } else {
+    }
+    else {
       setShowPassword((prev) => ({
         ...prev,
         type: "password",
@@ -76,7 +81,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
   //       );
   //     });
 
-      
+
 
   //     if (approveduser.length > 0) {
   //       setIsLogged(true);
@@ -89,6 +94,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   const handleCheckLogin = async () => {
     if (user.username && user.password) {
+
       await axios.post(`${api}/entrar/`, {
         Username: user.username,
         Password: user.password
@@ -96,18 +102,28 @@ export function LoginForm({ setToggle }: LoginFormProps) {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then((response) => {
-          if (response.status === 400) {
-            setErrorMessage(response.data)
-            alert(errorMessage);
-          }
-          else{
-            setErrorMessage("");
-            console.log(response)
-          }
-      }).catch((error) => {
-        console.log(error)
       })
+        .then((response) => {
+
+          if (response.status === 200) {
+            setMessage((prevValue) => ({
+              ...prevValue,
+              message: response.data.message,
+              type: response.data.statusCode
+            }))
+          }
+
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    else {
+      setMessage((prevValue) => ({
+        ...prevValue,
+        message: "Os campos são obrigatórios!",
+        type: 422
+      }))
     }
   }
 
@@ -130,6 +146,24 @@ export function LoginForm({ setToggle }: LoginFormProps) {
   ////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <>
+      {
+        message.type === 200 &&
+        (
+          <div className={styles.successMessage}>
+            <h4>{message.message}</h4>
+          </div>
+        )
+      }
+
+      {
+        message.type === 422 &&
+        (
+          <div className={styles.warningMessage}>
+            <h4>{message.message}</h4>
+          </div>
+        )
+      }
+
       <div className={styles.inputBox}>
         <div className={styles.formControl}>
           <input
