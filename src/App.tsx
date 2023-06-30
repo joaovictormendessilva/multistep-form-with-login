@@ -44,8 +44,12 @@ export function App() {
   return (
     <div className={styles.app}>
       <AuthContext.Provider value={{ isLogged, setIsLogged }}>
-        {!isLogged && <LoginAndRegister />}
-        <AppContextProvider>{isLogged && <Container />}</AppContextProvider>
+        {
+          !isLogged
+            ? <LoginAndRegister />
+            : <AppContextProvider>{isLogged && <Container />}</AppContextProvider>
+        }
+
       </AuthContext.Provider>
     </div>
   );

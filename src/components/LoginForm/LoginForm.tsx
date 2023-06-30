@@ -2,7 +2,7 @@
 import styles from "./LoginForm.module.css";
 
 // React
-import { useState, ChangeEvent, useContext } from "react";
+import { useState, ChangeEvent, useContext, useEffect } from "react";
 
 // Images
 import userIcon from "../../assets/userIcon.svg";
@@ -35,6 +35,10 @@ import axios from "axios";
 const api = import.meta.env.VITE_API
 
 export function LoginForm({ setToggle }: LoginFormProps) {
+  const [userData, setUserData] = useState({
+    username: "",
+    password: ""
+  })
   const [user, setUser] = useState<User>({} as User);
   const [showPassword, setShowPassword] = useState({
     type: "password",
@@ -44,10 +48,10 @@ export function LoginForm({ setToggle }: LoginFormProps) {
 
   const authContext = useContext(AuthContext);
   if (!authContext) return;
-  // const { setIsLogged } = authContext;
+  const { setIsLogged } = authContext;
 
-  const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
-    setUser((prev) => ({
+  const handleChangeUserData = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -93,11 +97,11 @@ export function LoginForm({ setToggle }: LoginFormProps) {
   // };
 
   const handleCheckLogin = async () => {
-    if (user.username && user.password) {
+    if (userData.username && userData.password) {
 
       await axios.post(`${api}/entrar/`, {
-        Username: user.username,
-        Password: user.password
+        Username: userData.username,
+        Password: userData.password
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -111,6 +115,18 @@ export function LoginForm({ setToggle }: LoginFormProps) {
               message: response.data.message,
               type: response.data.statusCode
             }))
+
+            setUser((prevValue) => ({
+              ...prevValue,
+              username: userData.username,
+              securityToken: response.data.securityToken,
+              expiration: response.data.expiration
+            }))
+
+            setInterval(() => {
+              setIsLogged(true)
+            }, 1000)
+
           }
 
         })
@@ -127,21 +143,27 @@ export function LoginForm({ setToggle }: LoginFormProps) {
     }
   }
 
+  useEffect(() => {
+    if (user.username) {
+      setLocalStorageWithExpiration("session", user, 1);
+    }
+  }, [user])
+
   // ////////////////////////////////////////////////////////////////////////////////////////
   // Função para armazenar dados no localStorage com uma data de expiração
-  // function setLocalStorageWithExpiration(
-  //   key: string,
-  //   value: typeof data,
-  //   expirationInMinutes: number
-  // ) {
-  //   const expirationMs = expirationInMinutes * 60 * 1000; // Converter minutos para milissegundos
-  //   const expirationTime = new Date().getTime() + expirationMs;
-  //   const data = {
-  //     value: value,
-  //     expirationTime: expirationTime,
-  //   };
-  //   localStorage.setItem(key, JSON.stringify(data));
-  // }
+  function setLocalStorageWithExpiration(
+    key: string,
+    value: typeof user,
+    expirationInMinutes: number
+  ) {
+    const expirationMs = expirationInMinutes * 60 * 1000; // Converter minutos para milissegundos
+    const expirationTime = new Date().getTime() + expirationMs;
+    const data = {
+      value: value,
+      expirationTime: expirationTime,
+    };
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 
   ////////////////////////////////////////////////////////////////////////////////////////////
   return (
@@ -171,7 +193,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
             name="username"
             type="text"
             placeholder="Type your username"
-            onChange={handleChangeUser}
+            onChange={handleChangeUserData}
           />
           <img
             className={styles.formIcon}
@@ -186,7 +208,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
             name="password"
             type={showPassword.type}
             placeholder="Type your password"
-            onChange={handleChangeUser}
+            onChange={handleChangeUserData}
           />
           <img
             className={styles.formIcon}
