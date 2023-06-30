@@ -1,6 +1,6 @@
-import { User } from "./User";
-
-export interface NewUser extends User {
+export interface NewUser {
   email: string;
+  username: string
+  password: string
   confirmPassword: string;
 }
