@@ -4,7 +4,7 @@ export interface Order {
   phone: string;
   plan: string;
   services: string[];
-  monthlyOrYearly: string;
+  monthlyOrYearly: boolean;
   planPrice: number;
   total: number;
 }

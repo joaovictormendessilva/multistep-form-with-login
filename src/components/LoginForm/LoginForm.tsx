@@ -113,6 +113,7 @@ export function LoginForm({ setToggle }: LoginFormProps) {
               type: error.response.data.StatusCode
             }))
           }
+          // console.log(error)
         })
     }
     else {

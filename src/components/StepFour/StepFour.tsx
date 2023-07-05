@@ -28,13 +28,13 @@ export function StepFour({ setStep }: StepFourProps) {
   const resultSumServices: number =
     stepTwoFields.monthlyOrYearly === "Monthly"
       ? stepThreeFields
-          .filter((service) => service.checked === true)
-          .reduce((total, valor) => total + valor.monthlyPrice, 0) +
-        stepTwoFields.planPrice!
+        .filter((service) => service.checked === true)
+        .reduce((total, valor) => total + valor.monthlyPrice, 0) +
+      stepTwoFields.planPrice!
       : stepThreeFields
-          .filter((service) => service.checked === true)
-          .reduce((total, valor) => total + valor.yearlyPrice, 0) +
-        stepTwoFields.planPrice!;
+        .filter((service) => service.checked === true)
+        .reduce((total, valor) => total + valor.yearlyPrice, 0) +
+      stepTwoFields.planPrice!;
 
   const anyChosenService = stepThreeFields.filter(
     (service) => service.checked === true
@@ -63,6 +63,10 @@ export function StepFour({ setStep }: StepFourProps) {
       .filter((service) => service.checked === true)
       .map((service) => service.label);
 
+    const monthlyOrYearly = stepTwoFields.monthlyOrYearly === 'Monthly'
+      ? true
+      : false
+
     const newOder: Order = {
       name: stepOneFields.name,
       email: stepOneFields.email,
@@ -70,11 +74,13 @@ export function StepFour({ setStep }: StepFourProps) {
       plan: stepTwoFields.plan,
       planPrice: stepTwoFields.planPrice,
       services: services,
-      monthlyOrYearly: stepTwoFields.monthlyOrYearly,
+      monthlyOrYearly: monthlyOrYearly,
       total: resultSumServices,
     };
 
     setOrder(newOder);
+
+    console.log(newOder)
 
     setStep((prev) => ({
       ...prev,
