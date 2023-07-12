@@ -37,7 +37,7 @@ export function LightBox() {
               <b>Plan</b>: {order.plan}
             </li>
             <li>
-              <b>Type</b>: {order.monthlyOrYearly}
+              <b>Type</b>: {order.monthlyOrYearly ? "Monthly" : "Yearly"}
             </li>
             <li>
               <b>Plan value</b>: ${order.planPrice}
@@ -58,7 +58,7 @@ export function LightBox() {
           <div className={styles.totalContainer}>
             <h4>
               Total{" "}
-              {order.monthlyOrYearly === "Monthly" ? "per month" : "per year"}:
+              {order.monthlyOrYearly ? "per month" : "per year"}:
               ${order.total}
             </h4>
           </div>

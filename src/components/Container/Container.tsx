@@ -11,6 +11,7 @@ import { ThankYouStep } from "../ThankYouStep/ThankYouStep";
 import { StepInterface } from "../../interfaces/Step";
 import { LightBox } from "../LightBox/LightBox";
 import { AppContext } from "../../contexts/AppContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export function Container() {
   const appContext = useContext(AppContext);
@@ -25,8 +26,10 @@ export function Container() {
     thankYouStep: false,
   });
 
+  const { isLogged } = useAuthContext()
+
   return (
-    <div className={styles.container}>
+    isLogged && <div className={styles.container}>
       <AsideSteps step={step} />
 
       <main>

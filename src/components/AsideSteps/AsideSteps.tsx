@@ -1,26 +1,22 @@
 // CSS
 import styles from "./AsideSteps.module.css";
 
-// React
-import { useContext } from "react";
-
-// Context
-import { AuthContext } from "../../App";
-
 // Images
 import signOutIcon from "../../assets/sign-out.svg";
 
 // Interface
 import { StepInterface } from "../../interfaces/Step";
 
+// Context
+import { useAuthContext } from "../../contexts/AuthContext";
+
 interface AsideStepsProps {
   step: StepInterface;
 }
 
 export function AsideSteps({ step }: AsideStepsProps) {
-  const authContext = useContext(AuthContext);
-  if (!authContext) return;
-  const { setIsLogged } = authContext;
+
+  const { setIsLogged } = useAuthContext()
 
   const handleLogout = () => {
     localStorage.removeItem("session");
