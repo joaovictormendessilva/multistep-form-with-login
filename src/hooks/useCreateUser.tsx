@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { NewUser } from "../interfaces/NewUser";
-import axios from "axios";
 import { MessageProps } from "../interfaces/Message";
+import { api } from "../services/axios";
 
-const api = import.meta.env.VITE_API;
 
 export function useCreateUser() {
   const [changeNewUser, setChangeNewUser] = useState<NewUser>({} as NewUser);
@@ -17,7 +16,7 @@ export function useCreateUser() {
       changeNewUser.confirmPassword
     ) {
       if (changeNewUser.password === changeNewUser.confirmPassword) {
-        await axios.post(`${api}/nova-conta/`, {
+        await api.post(`/nova-conta/`, {
           Username: changeNewUser.username,
           Email: changeNewUser.email,
           Password: changeNewUser.password,

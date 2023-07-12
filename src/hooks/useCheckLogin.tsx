@@ -1,10 +1,8 @@
-import axios from "axios"
 import { useState } from "react"
 import { MessageProps } from "../interfaces/Message"
 import { User } from "../interfaces/User"
 import { useAuthContext } from "../contexts/AuthContext"
-
-const api = import.meta.env.VITE_API
+import { api } from '../services/axios'
 
 export function useCheckLogin() {
 
@@ -21,7 +19,7 @@ export function useCheckLogin() {
 
     if (userData.username && userData.password) {
 
-      await axios.post(`${api}/entrar/`, {
+      await api.post(`/entrar/`, {
         Username: userData.username,
         Password: userData.password
       }, {
